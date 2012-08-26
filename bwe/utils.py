@@ -1,6 +1,6 @@
 def find_by_id(id, entries):
     for entry in entries:
-        if entry.id == id
+        if entry.id == id:
             return entry
     return None
 
