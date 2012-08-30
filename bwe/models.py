@@ -10,6 +10,7 @@ class Player:
 
     def init_cards(self):
         self.cards = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.cardSum = 0;
 
 
     def attend(self, game):
@@ -24,20 +25,19 @@ class Player:
 
     def pickup_card(self, cardType):
         self.cards[cardType] += 1
+        self.cardSum += 1;
         self.game.cards[cardType] -= 1
         
     def reinforce(self,targetPlayer, cardType):
         self.cards[cardType] -= 1
+        self.cardSum -= 1;
         targetPlayer.cards[cardType] += 1
 
     def attack(self, targetPlayer, originCards, targetCards):
         return
 
     def card_count(self):
-        count = 0
-        for card in self.cards:
-            count += card
-        return count
+        return cardSum;
 
 class Game:
     fieldList = ["id", "gameName", "players", "cards"]
@@ -54,6 +54,7 @@ class Game:
 
     def __init_cards(self):
         self.cards = [1, 1, 4, 4, 4, 4, 4, 4, 12, 12, 24] # be we bk wk br wr ba wa s m f
+        self.cardSum = 74;
         for player in self.players:
             player.init_cards()
 
@@ -67,11 +68,13 @@ class Game:
             self.players[0].pickup_card(0)
             self.players[1].pickup_card(1)
 
+        self.cardSum -= 2;
+
         for player in self.players:
-            for i in range(12 - player.card_count()):
-                cardType = None
-                while True:
-                    cardType = randint(2, len(self.cards) - 1)
-                    if(self.cards[cardType] > 0):
-                        break
+            while player.card_count() < 13:
+                cardNum = randint(1, self.cardSum);
+                cardType = 0;
+                while cardNum - player.cards[cardType] > 0:
+                    cardNum -= player.cards[cardType];
+                    cardType += 1;
                 player.pickup_card(cardType)
