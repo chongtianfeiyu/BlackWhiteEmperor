@@ -72,7 +72,7 @@ class Game:
         self.cardSum -= 2
 
         for player in self.players:
-            while player.card_count() < 13:
+            while player.card_count() < 12:
                 cardNum = randint(1, self.cardSum-1)
                 cardType = 2
                 while cardNum - self.cards[cardType] > 0:
