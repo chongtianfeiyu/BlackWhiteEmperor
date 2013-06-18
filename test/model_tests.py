@@ -6,6 +6,8 @@ sys.path.append("..")
 from bwe.models import *
 import unittest
 import random
+
+
 class TestModelFunctions(unittest.TestCase):
     def init_game(self):
         self.game = Game("Test Room", Player("Tom"))
@@ -34,7 +36,7 @@ class TestModelFunctions(unittest.TestCase):
         player = self.game.players[0]
         cards = [4, 4, 4, 4, 4, 4, 12, 12, 24]
         for i in range(len(cards)):
-            cards[i] = random.randint(0,cards[i])
+            cards[i] = random.randint(0, cards[i])
         for i in range(len(cards)):
             for j in range(cards[i]):
                 player.pickup_card(i)

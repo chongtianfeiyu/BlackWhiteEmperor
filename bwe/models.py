@@ -1,7 +1,9 @@
 from uuid import uuid4
 
+
 class Player:
     fieldList = ["id", "playerName", "cards"]
+
     def __init__(self, playerName):
         self.id = uuid4()
         self.playerName = playerName
@@ -10,8 +12,7 @@ class Player:
 
     def init_cards(self):
         self.cards = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        self.cardSum = 0;
-
+        self.cardSum = 0
 
     def attend(self, game):
         self.game = game
@@ -28,8 +29,8 @@ class Player:
         self.cardSum += 1
         self.game.cards[cardType] -= 1
         self.game.cardSum -= 1
-        
-    def reinforce(self,targetPlayer, cardType):
+
+    def reinforce(self, targetPlayer, cardType):
         self.cards[cardType] -= 1
         self.cardSum -= 1
         targetPlayer.cards[cardType] += 1
@@ -40,8 +41,10 @@ class Player:
     def card_count(self):
         return self.cardSum
 
+
 class Game:
     fieldList = ["id", "gameName", "players", "cards"]
+
     def __init__(self, gameName, owner):
         self.id = uuid4()
         self.gameName = gameName
@@ -54,16 +57,16 @@ class Game:
         self.__deal()
 
     def __init_cards(self):
-        self.cards = [1, 1, 4, 4, 4, 4, 4, 4, 12, 12, 24] # be we bk wk br wr ba wa s m f
-        self.cardSum = 74;
+        self.cards = [1, 1, 4, 4, 4, 4, 4, 4, 12, 12, 24]  # be we bk wk br wr ba wa s m f
+        self.cardSum = 74
         for player in self.players:
             player.init_cards()
 
     def __deal(self):
         from random import randint
-        if len(self.players) > 2:# Pickup The Black/White Empirors
+        if len(self.players) > 2:  # Pickup The Black/White Empirors
             for cardType in range(2):
-                self.players[randint(0,len(self.players)-1)].pickup_card(cardType)
+                self.players[randint(0, len(self.players)-1)].pickup_card(cardType)
         elif len(self.players) == 2:
             # Give the Black Empiror to the first player and the White Empiror to the second player
             self.players[0].pickup_card(0)

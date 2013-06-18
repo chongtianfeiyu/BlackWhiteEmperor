@@ -3,25 +3,27 @@
 from models import *
 import web
 
+
 class BaseController:
     def __init__(self):
         self.url_parts = web.ctx.path.split('/')
         self.data = web.data()
         if len(self.url_parts) > 2:
-          self.id = self.url_parts[2]
+            self.id = self.url_parts[2]
         web.ctx.session.start()
 
     def GET(self):
         if not self.id is None:
-          return self.list()
+            return self.list()
         else:
-          return self.show()
+            return self.show()
 
     def POST(self):
         if not self.data["do"] is None:
             action = getattr(obj, self.data["do"])
             return action()
-        return 
+        return True
+
 
 class GameController(BaseController):
     def __init__(self):
@@ -38,7 +40,7 @@ class GameController(BaseController):
     def new(self):
         player = web.ctx.session["player"]
         games.append(Game(player))
-        return 
+        return True
 
     def start(self):
         if self.game.start():
@@ -58,7 +60,7 @@ class PlayerController(BaseController):
 
     def show(self):
         return build_single_json(self.player)
-    
+
     def new(self):
         player = Player(self.data["playerName"])
         players.append(player)
@@ -84,7 +86,7 @@ class PlayerController(BaseController):
         targetPlayer = find_by_id(self.data["targetPlayerId"])
         originCardType = self.data["originCardType"]
         targetCardType = self.data["targetCardType"]
-        web.ctx.session["currentPlayer"].exchange(targetPlayer,originCardType, targetCardType)
+        web.ctx.session["currentPlayer"].exchange(targetPlayer, originCardType, targetCardType)
         return "success"
 
     def pick_card(self):
@@ -100,4 +102,4 @@ class PlayerController(BaseController):
         return "success"
 
     def attack(self):
-        return
+        return True
