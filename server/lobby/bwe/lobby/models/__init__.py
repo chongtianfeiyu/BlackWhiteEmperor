@@ -1,7 +1,7 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm.session import sessionmaker
+#!/usr/bin/env python
+# coding=utf-8
 
-engine = create_engine('sqlite:///bwe.db')
-Maker = sessionmaker(bind=engine)
-def get_session():
-    return Maker()
+from rom import util
+from bwe.lobby import config
+
+util.set_connection_settings(**config['redis'])

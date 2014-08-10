@@ -1,0 +1,26 @@
+{
+    "dev": {
+        "flask": {
+            "DEBUG": true,
+            "RELOAD": true,
+            "SECRET_KEY": "c09df428d9a73e392f52d265ada5f418"
+        },
+        "redis": {
+            "host": "anacreon",
+            "port": 6379,
+            "db": 4
+        }
+    },
+    "production": {
+        "flask": {
+            "DEBUG": false,
+            "RELOAD": false,
+            "SECRET_KEY": "c09df428d9a73e392f52d265ada5f418"
+        },
+        "redis": {
+            "host": "anacreon",
+            "port": 6379,
+            "db": 0
+        }
+    }
+}

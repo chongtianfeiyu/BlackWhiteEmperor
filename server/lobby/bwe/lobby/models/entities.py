@@ -1,16 +1,19 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+#!/usr/bin/env python
+# coding=utf-8
 
-Base = declarative_base()
 
-class Player(Base):
-    id = Column(Integer, primary_key=True)
-    email = Column(String(255))
-    name = Column(String(30))
-    password = Column(String(32))
-    played_games = Column(Integer)
+import rom, time
 
-    def __init__(self, email, name, password):
-        self.email = email
-        self.name = name
-        self.password = password
+
+class Player(rom.Model):
+    name = rom.String(required=True, unique=True, suffix=True)
+    salt = rom.String()
+    password = rom.String()
+    played_games = rom.Integer()
+    created_at = rom.Float(default=time.time, index=True)
+
+
+class Room(rom.Model):
+
+    columns = ["id", "name"]
+
